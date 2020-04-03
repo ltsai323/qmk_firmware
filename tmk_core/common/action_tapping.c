@@ -162,7 +162,8 @@ bool process_tapping(keyrecord_t *keyp) {
                 } else {
                     // set interrupted flag when other key preesed during tapping
                     if (event.pressed) {
-                        tapping_key.tap.interrupted = true;
+                        process_record(&tapping_key);
+                        tapping_key = (keyrecord_t){};
                     }
                     // enqueue
                     return false;
@@ -176,7 +177,7 @@ bool process_tapping(keyrecord_t *keyp) {
                     debug(")\n");
                     keyp->tap = tapping_key.tap;
                     process_record(keyp);
-                    tapping_key = *keyp;
+                    tapping_key = (keyrecord_t){};
                     debug_tapping_key();
                     return true;
                 } else if (is_tap_key(event.key) && event.pressed) {
@@ -196,6 +197,7 @@ bool process_tapping(keyrecord_t *keyp) {
                         debug("Tapping: key event while last tap(>0).\n");
                     }
                     process_record(keyp);
+                    tapping_key = (keyrecord_t){};
                     return true;
                 }
             }
