@@ -16,6 +16,7 @@ void led_set_kb(uint8_t usb_led) {
 	} else {
 		xd60_caps_led_off();
   }
+  rgblight_enable();
 
   // if (usb_led & (1<<USB_LED_NUM_LOCK)) {
 	// xd60_esc_led_on();
